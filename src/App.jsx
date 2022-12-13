@@ -10,9 +10,8 @@ const usePokemonData = () => {
   return { pokemon }
 }
 
-const PokemonList = ({ pokemon }) => {
-  const theme = useContext(ThemeProvider)
-  console.log("Context", theme)
+const PokemonList = () => {
+  const { pokemon } = useContext(PokemonProvider)
   return (
     <ul>
       {pokemon.map((d) => (
@@ -22,14 +21,13 @@ const PokemonList = ({ pokemon }) => {
   )
 }
 
-const ThemeProvider = createContext("")
+const PokemonProvider = createContext()
 
 const App = () => {
-  const { pokemon } = usePokemonData()
   return (
-    <ThemeProvider.Provider value="light">
-      <PokemonList pokemon={pokemon}></PokemonList>
-    </ThemeProvider.Provider>
+    <PokemonProvider.Provider value={usePokemonData()}>
+      <PokemonList />
+    </PokemonProvider.Provider>
   )
 }
 
