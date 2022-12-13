@@ -1,5 +1,15 @@
 import { useEffect, useState } from "react"
 
+const usePokemonData = () => {
+  const [pokemon, setPokemon] = useState([])
+  useEffect(() => {
+    fetch("../public/pokemon.json")
+      .then((res) => res.json())
+      .then((data) => setPokemon(data))
+  }, [])
+  return { pokemon }
+}
+
 const PokemonList = ({ pokemon }) => {
   console.log("PokemonList")
   return (
@@ -12,12 +22,7 @@ const PokemonList = ({ pokemon }) => {
 }
 
 const App = () => {
-  const [pokemon, setPokemon] = useState([])
-  useEffect(() => {
-    fetch("../public/pokemon.json")
-      .then((res) => res.json())
-      .then((data) => setPokemon(data))
-  }, [])
+  const { pokemon } = usePokemonData()
   return <PokemonList pokemon={pokemon}></PokemonList>
 }
 
