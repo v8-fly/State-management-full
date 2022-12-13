@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 
 const usePokemonData = () => {
   const [pokemon, setPokemon] = useState([])
@@ -11,7 +11,8 @@ const usePokemonData = () => {
 }
 
 const PokemonList = ({ pokemon }) => {
-  console.log("PokemonList")
+  const theme = useContext(ThemeProvider)
+  console.log("Context", theme)
   return (
     <ul>
       {pokemon.map((d) => (
@@ -21,9 +22,15 @@ const PokemonList = ({ pokemon }) => {
   )
 }
 
+const ThemeProvider = createContext("")
+
 const App = () => {
   const { pokemon } = usePokemonData()
-  return <PokemonList pokemon={pokemon}></PokemonList>
+  return (
+    <ThemeProvider.Provider value="light">
+      <PokemonList pokemon={pokemon}></PokemonList>
+    </ThemeProvider.Provider>
+  )
 }
 
 export default App
