@@ -6,12 +6,14 @@ export const usePokemonContext = () => useContext(PokemonContext)
 
 const usePokemonData = () => {
   const [pokemon, setPokemon] = useState([])
+  const [search, setSearch] = useState("")
   useEffect(() => {
     fetch("../public/pokemon.json")
       .then((res) => res.json())
       .then((data) => setPokemon(data))
   }, [])
-  return { pokemon }
+
+  return { pokemon, search, setSearch }
 }
 export const PokemonProvider = ({ children }) => (
   <PokemonContext.Provider value={usePokemonData()}>

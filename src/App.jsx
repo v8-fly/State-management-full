@@ -1,5 +1,18 @@
 import { PokemonProvider, usePokemonContext } from "./store"
 
+const SearchPokemon = () => {
+  const { search, setSearch } = usePokemonContext()
+  return (
+    <input
+      type="text"
+      className="mt-3 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-800 focus:ring-indigo-800 sm:text-lg p-2"
+      placeholder="Search Pokemon"
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+    />
+  )
+}
+
 const PokemonList = () => {
   const { pokemon } = usePokemonContext()
   return (
@@ -23,12 +36,11 @@ const PokemonList = () => {
   )
 }
 
-const TEST = () => <>HARDIK</>
-
 const App = () => {
   return (
     <>
       <PokemonProvider>
+        <SearchPokemon />
         <PokemonList />
       </PokemonProvider>
     </>
